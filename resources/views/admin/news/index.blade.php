@@ -26,8 +26,18 @@
                             <!--<td class="align-middle">Saúde</td>-->
                             <td class="align-middle">{{ $item->created_at->format('d/m/Y à\s H\hi')}}</td>
                             <td class="align-middle">
-                                <a href="{{ route("news.edit", $item->id) }}" class="btn btn-sm btn-primary">Editar</a>
-                                <button type="button" class="btn btn-sm btn-danger">Excluir</button>
+                                
+                                <form method="POST" action="{{ route("news.destroy", $item->id) }}">
+                                    
+                                    @csrf
+                                    @method("delete")
+                                    <a href="{{ route("news.edit", $item->id) }}" class="btn btn-sm btn-primary">
+                                        Editar
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-danger" onclick=" if(confirm('Você tem certeza que deseja excluir este registro?')){ this.form.submit() }" >
+                                        Excluir
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

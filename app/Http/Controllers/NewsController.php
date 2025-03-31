@@ -79,6 +79,10 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-        //
+        $news->delete(); 
+        
+        session()->flash("success","O registro foi deletado com sucesso!");
+
+        return redirect()->back();
     }
 }
