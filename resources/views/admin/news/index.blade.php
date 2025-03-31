@@ -16,7 +16,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Título</th>
-                        <!--<th scope="col">Categoria</th>-->
+                        <th scope="col">Categoria</th>
                         <th scope="col">Data de publicação</th>
                         <th scope="col">Ações</th>
                     </tr>
@@ -25,8 +25,8 @@
                     @foreach($news as $item)
                         <tr>
                             <th class="align-middle" scope="row">{{ $item->id}}</th>
-                            <td class="align-middle">{{ $item->title}}</td>
-                            <!--<td class="align-middle">Saúde</td>-->
+                            <td class="align-middle">{{ str()->limit($item->title, 30, '...')}}</td>
+                            <td class="align-middle">{{ $item->category->title ?? "---"}}</td>
                             <td class="align-middle">{{ $item->created_at->format('d/m/Y à\s H\hi')}}</td>
                             <td class="align-middle">
                                 

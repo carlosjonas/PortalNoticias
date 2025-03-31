@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\Models\Category;
 use App\Http\Requests\NewsRequest;
 use Illuminate\Http\Request;
 
@@ -10,10 +11,13 @@ class NewsController extends Controller
 {
 
     private $news;
+    
+    private $category;
 
-    public function __construct(News $news){
+    public function __construct(News $news,Category $category){
 
         $this->news = $news;
+        $this->category = $category;
     }
     /**
      * Display a listing of the resource.
@@ -31,7 +35,10 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view("admin.news.create");
+
+        $categories = $this->category->all();
+
+        return view("admin.news.create",compact('categories'));
     }
 
     /**
@@ -59,7 +66,10 @@ class NewsController extends Controller
      */
     public function edit(News $news)
     {
-        return view("admin.news.edit",compact("news"));
+
+        $categories = $this->category->all();
+
+        return view("admin.news.edit",compact("news","categories"));
     }
 
     /**
