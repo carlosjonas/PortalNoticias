@@ -2,12 +2,12 @@
 @extends("admin.template.layout")
 @section("main")
 
-    <h1 class="mb-4">Gerenciamento de Notícias</h1>
+    <h1 class="mb-4">Gerenciamento de Categorias</h1>
 
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items">
-            <h4 class="mb-0">Notícias cadastradas</h4>
-            <a class="btn btn-success" href="{{ route("news.create") }}"><i class="bi bi-plus-lg"></i> Nova notícia</a>
+            <h4 class="mb-0">Categorias cadastradas</h4>
+            <a class="btn btn-success" href="{{ route("category.create") }}"><i class="bi bi-plus-lg"></i> Nova categoria</a>
         </div>
         <div class="card-body">
 
@@ -16,25 +16,23 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Título</th>
-                        <!--<th scope="col">Categoria</th>-->
                         <th scope="col">Data de publicação</th>
                         <th scope="col">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($news as $item)
+                    @foreach($categories as $item)
                         <tr>
                             <th class="align-middle" scope="row">{{ $item->id}}</th>
                             <td class="align-middle">{{ $item->title}}</td>
-                            <!--<td class="align-middle">Saúde</td>-->
                             <td class="align-middle">{{ $item->created_at->format('d/m/Y à\s H\hi')}}</td>
                             <td class="align-middle">
                                 
-                                <form method="POST" action="{{ route("news.destroy", $item->id) }}">
+                                <form method="POST" action="{{ route("category.destroy", $item->id) }}">
                                     
                                     @csrf
                                     @method("delete")
-                                    <a href="{{ route("news.edit", $item->id) }}" class="btn btn-sm btn-primary">
+                                    <a href="{{ route("category.edit", $item->id) }}" class="btn btn-sm btn-primary">
                                         Editar
                                     </a>
                                     <button type="button" class="btn btn-sm btn-danger" onclick=" if(confirm('Você tem certeza que deseja excluir este registro?')){ this.form.submit() }" >
@@ -50,7 +48,7 @@
             <hr>
 
             <div class="d-flex justify-content-center">
-                {{ $news->links() }}
+                {{ $categories->links() }}
             </div>
 
         </div>

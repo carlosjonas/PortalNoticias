@@ -1,7 +1,7 @@
 @extends("admin.template.layout")
 @section("main")
 
-    <h1 class="mb-4">Gerenciamento de Notícias</h1>
+    <h1 class="mb-4">Gerenciamento de Categorias</h1>
     
     @if(session()->has("success"))
         <div class="alert alert-success">
@@ -23,18 +23,19 @@
     <div class="card">
         
         <div class="card-header d-flex justify-content-between align-items">
-            <h4 class="mb-0">Cadastrar notícia</h4>
-            <a class="btn btn-primary" href="{{ route("news.index") }}"><i class="bi bi-backspace"></i> Voltar</a>
+            <h4 class="mb-0">Editar Categoria</h4>
+            <a class="btn btn-primary" href="{{ route("category.index") }}"><i class="bi bi-backspace"></i> Voltar</a>
         </div>
         <div class="card-body">
 
             <div class="row">
 
-                <form action="{{ route("news.store") }}" method="POST">
+                <form action="{{ route("category.update", $category->id) }}" method="POST">
 
                     @csrf 
+                    @method("put")
 
-                    @include("admin.news.partials.form")
+                    @include("admin.category.partials.form")
 
                 </form>
             </div>
