@@ -37,6 +37,8 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+require base_path('routes/api.php');
+
 
 /*Route::get('/noticias', [NewsController::class, "index"])->name("news.index");
 Route::get('/noticias/nova', [NewsController::class, "create"])->name("news.create");;

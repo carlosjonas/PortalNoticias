@@ -2,6 +2,14 @@
 @extends("admin.template.layout")
 @section("main")
 
+@php
+$jwtToken = session('jwt_token');
+
+if ($jwtToken) {
+    // Faça algo com o token, como exibi-lo ou usá-lo em chamadas de API futuras.
+    dd($jwtToken);
+}
+@endphp
     <h1 class="mb-4">Gerenciamento de Notícias</h1>
 
     <div class="card">

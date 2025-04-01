@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -27,6 +28,11 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        // Gerar token JWT após o login bem-sucedido do Breeze
+        $token = JWTAuth::fromUser(Auth::user());
+        
+        session(['jwt_token' => $token]);
 
         return redirect()->intended('/noticias');
         //return redirect()->intended(route('dashboard', absolute: false));
