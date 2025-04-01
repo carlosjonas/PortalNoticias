@@ -4,6 +4,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\JWTExpiredMiddleware;
 
 
 
@@ -18,9 +19,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-//Criando agrupamento de middlewares para que todas as rotas precisem da autenticação do usuário
-Route::middleware('auth')->group(function () {
-
+/*Route::middleware([JWTAuthMiddleware::class])->group(function () {
     //Rotas de notícias
     Route::resource('noticias', NewsController::class)
     ->names("news")
@@ -34,10 +33,37 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::middleware(['jwt.expired'])->group(function () {
+        Route::resource('noticias', NewsController::class)->names("news");
+    });
+});*/
+
+//Criando agrupamento de middlewares para que todas as rotas precisem da autenticação do usuário
+Route::middleware('auth')->group(function () {
+
+    
+    //Rotas de notícias
+    Route::resource('noticias', NewsController::class)
+        ->names("news")
+        ->parameters(["noticias" => "news"]);
+
+    Route::delete('noticias/{news}', [NewsController::class, "destroy"])
+        ->name("news.destroy")    
+        ->middleware('can:excluir-noticias');
+
+    //Rotas de categorias
+    Route::resource('categorias', CategoryController::class)
+        ->names("category")
+        ->parameters(["categorias" => "category"]);
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';
-require base_path('routes/api.php');
+//require base_path('routes/api.php');
 
 
 /*Route::get('/noticias', [NewsController::class, "index"])->name("news.index");

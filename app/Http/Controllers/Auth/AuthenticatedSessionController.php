@@ -29,13 +29,21 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        /*$token = JWTAuth::claims(['exp' => now()->addMinutes(5)->timestamp])
+        ->fromUser(Auth::user());
+    
+        // Enviar o token como um cookie seguro ou no response
+        return redirect()->intended('/noticias')->withCookie(cookie('jwt_token', $token, 5));
+
         // Gerar token JWT após o login bem-sucedido do Breeze
         $token = JWTAuth::fromUser(Auth::user());
         
-        session(['jwt_token' => $token]);
+        session(['jwt_token' => $token]);*/
 
-        return redirect()->intended('/noticias');
-        //return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended('noticias');
+        //return redirect()->intended(route('dashboard', absolute: false));*/
+        // Criar um token JWT com tempo de expiração de 5 minutos
+   
     }
 
     /**

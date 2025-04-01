@@ -30,7 +30,7 @@
 
             <div class="row">
 
-                <form action="{{ route("news.store") }}" method="POST">
+                <form action="{{ route("news.store") }}" method="POST" enctype="multipart/form-data">
 
                     @csrf 
 

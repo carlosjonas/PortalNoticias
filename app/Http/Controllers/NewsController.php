@@ -10,9 +10,7 @@ use Illuminate\Http\Request;
 class NewsController extends Controller
 {
 
-    private $news;
-    
-    private $category;
+    private $news,$category;
 
     public function __construct(News $news,Category $category){
 
@@ -35,10 +33,10 @@ class NewsController extends Controller
      */
     public function create()
     {
-
+        
         $categories = $this->category->all();
-
-        return view("admin.news.create",compact('categories'));
+        
+        return view("admin.news.create", compact('categories'));
     }
 
     /**
@@ -46,7 +44,15 @@ class NewsController extends Controller
      */
     public function store(NewsRequest $request)
     {
-        $this->news->create($request->all()); 
+        //dd($request->file("cover"));
+        $file = $request->file("cover");
+        $file->store("news");
+
+        $data = $request->all();
+
+        $data['cover'] = $file->hashName();
+        //dd($data);
+        $this->news->create($data); 
         
         session()->flash("success","O registro foi gravado com sucesso!");
 

@@ -10,7 +10,7 @@ class News extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category_id','title','subtitle','text'];
+    protected $fillable = ['category_id','title','subtitle','text','cover','id_user'];
 
     //Function that brings the name of the categories to the index of news
     public function category(){

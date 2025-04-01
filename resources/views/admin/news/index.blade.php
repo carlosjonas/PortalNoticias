@@ -3,12 +3,13 @@
 @section("main")
 
 @php
+/*
 $jwtToken = session('jwt_token');
 
 if ($jwtToken) {
     // Faça algo com o token, como exibi-lo ou usá-lo em chamadas de API futuras.
     dd($jwtToken);
-}
+}*/
 @endphp
     <h1 class="mb-4">Gerenciamento de Notícias</h1>
 
@@ -45,9 +46,12 @@ if ($jwtToken) {
                                     <a href="{{ route("news.edit", $item->id) }}" class="btn btn-sm btn-primary">
                                         Editar
                                     </a>
-                                    <button type="button" class="btn btn-sm btn-danger" onclick=" if(confirm('Você tem certeza que deseja excluir este registro?')){ this.form.submit() }" >
-                                        Excluir
-                                    </button>
+
+                                    @can("excluir-noticias")
+                                        <button type="button" class="btn btn-sm btn-danger" onclick=" if(confirm('Você tem certeza que deseja excluir este registro?')){ this.form.submit() }" >
+                                            Excluir
+                                        </button>
+                                    @endcan
                                 </form>
                             </td>
                         </tr>
