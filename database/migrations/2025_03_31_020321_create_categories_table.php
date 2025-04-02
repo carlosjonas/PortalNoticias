@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string("title");
+            $table->string("token")->unique();
+            $table->integer("id_user");
             $table->timestamps();
         });
     }

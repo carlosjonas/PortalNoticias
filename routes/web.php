@@ -48,9 +48,11 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/', [SiteController::class, 'home']);
-Route::get('/noticias/{news}', [SiteController::class, 'read'])->name('newsRead');
+Route::get('/noticias/categoria/{token}', [SiteController::class, 'newsCategory'])->name('newsCategory');
+Route::get('/noticias/{news}/{slug}', [SiteController::class, 'read'])->name('newsRead');
 Route::get('/noticias', [SiteController::class, 'news'])->name('newsIndex');
 Route::get('/noticia/imagem/{filename}', [SiteController::class, 'exibirImagem'])->name('noticia.imagem');
+
 
 
 

@@ -9,7 +9,7 @@
             </header>
             <p>{{ $topNews->text}}</p>
             <ul class="actions">
-                <li><a href="{{ route("newsRead",$topNews)}}" class="button big">Leia Mais</a></li>
+                <li><a href="{{ route("newsRead",['news' =>$topNews,'slug' => $topNews->slugTitle])}}" class="button big">Leia Mais</a></li>
             </ul>
         </div>
         @if(!empty($topNews->cover))
@@ -31,12 +31,12 @@
             @foreach($news as $newsItem)
             <article>
                 @if(!empty($newsItem->cover))
-                    <a href="{{ route("newsRead",$newsItem)}}" class="image"><img src="{{ route('noticia.imagem', ['filename' => $newsItem->cover]) }}" alt="" /></a>
+                    <a href="{{ route("newsRead",['news' =>$newsItem,'slug' => $newsItem->slugTitle])}}" class="image"><img src="{{ route('noticia.imagem', ['filename' => $newsItem->cover]) }}" alt="" /></a>
                 @endif
                     <h3>{{$newsItem->title}}</h3>
                 <p>{{$newsItem->subtitle}}</p>
                 <ul class="actions">
-                    <li><a href="{{ route("newsRead",$newsItem)}}" class="button">Leia</a></li>
+                    <li><a href="{{ route("newsRead",['news' =>$newsItem,'slug' => $newsItem->slugTitle])}}" class="button">Leia</a></li>
                 </ul>
             </article>
             @endforeach
