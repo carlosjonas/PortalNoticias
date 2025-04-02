@@ -12,6 +12,9 @@ class News extends Model
 
     protected $fillable = ['category_id','title','subtitle','text','cover','id_user'];
 
+    public function getSummaryAttribute(){
+        return Str::substr($this->attributes['text'],0,100)."...";
+    }
     //Function that brings the name of the categories to the index of news
     public function category(){
         return $this->belongsTo(Category::class);
