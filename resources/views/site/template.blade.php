@@ -51,6 +51,7 @@
 									<ul>
 									@guest
 										<li><a href="{{ route('login') }}">Entrar</a></li>
+										<li><a href="{{ route('register') }}">Registrar-se</a></li>
 										<li><a href="/">Home</a></li>
 										<li><a href="{{ route('newsIndex')}}">Todas as notícias</a></li>
 										<li>

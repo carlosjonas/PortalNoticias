@@ -17,7 +17,7 @@
                             <a class="nav-link" href="{{ route("category.index") }}">Categorias</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Comentários</a>
+                        <a class="nav-link" href="{{ route("user.show", auth()->user()->id) }}">Perfil</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Usuários</a>

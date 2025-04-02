@@ -38,10 +38,6 @@ class AppServiceProvider extends ServiceProvider
             }
         }
         
-
-        
-
-        
-        View::share('categories',$categories);
+         View::share('categories',$categories);
     }
 }

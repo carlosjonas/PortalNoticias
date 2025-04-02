@@ -44,14 +44,12 @@ class NewsController extends Controller
      */
     public function store(NewsRequest $request)
     {
-        //dd($request->file("cover"));
+        
         $file = $request->file("cover");
         $file->store("news");
-
         $data = $request->all();
-
         $data['cover'] = $file->hashName();
-        //dd($data);
+
         $this->news->create($data); 
         
         session()->flash("success","O registro foi gravado com sucesso!");

@@ -4,6 +4,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\JWTExpiredMiddleware;
 use Intervention\Image\Laravel\Facades\Image;
@@ -41,6 +42,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('categorias', CategoryController::class)
             ->names("category")
             ->parameters(["categorias" => "category"]);
+
+        //Rotas de usuarios
+        Route::resource('usuarios', UserController::class)
+            ->names("user")
+            ->parameters(["usuarios" => "user"]);
 
     });
 
