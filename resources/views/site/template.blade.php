@@ -17,7 +17,7 @@
 
 							<!-- Header -->
 								<header id="header">
-									<a href="index.html" class="logo"><strong>Portal de Notícias</strong></a>
+									<a href="/" class="logo"><strong>Portal de Notícias</strong></a>
 									<ul class="icons">
 										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
 										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
@@ -38,8 +38,8 @@
 
 							<!-- Search -->
 								<section id="search" class="alt">
-									<form method="post" action="#">
-										<input type="text" name="query" id="query" placeholder="Search" />
+									<form method="get" action="{{ route('newsSearch')}}">
+										<input type="text" name="keyword" id="keyword" placeholder="Buscar Notícia" />
 									</form>
 								</section>
 
@@ -49,7 +49,8 @@
 										<h2>Menu</h2>
 									</header>
 									<ul>
-                                        <li><a href="index.html">Entrar</a></li>
+									@guest
+										<li><a href="{{ route('login') }}">Entrar</a></li>
 										<li><a href="/">Home</a></li>
 										<li><a href="{{ route('newsIndex')}}">Todas as notícias</a></li>
 										<li>
@@ -60,6 +61,45 @@
 												@endforeach
 											</ul>
 										</li>
+									@else
+										<li><a href="{{ route('news.index') }}">Gerenciamento</a></li>
+										<li><a href="/">Home</a></li>
+										<li><a href="{{ route('newsIndex')}}">Todas as notícias</a></li>
+										<li>
+											<span class="opener">Categorias</span>
+											<ul>
+												@foreach($categories as $category)
+													<li><a href="{{ route("newsCategory",$category->token)}}">{{$category->title}}</a></li>
+												@endforeach
+											</ul>
+										</li>	
+										<li>
+											<a href="#" id="logout-link" style="cursor: pointer; color: inherit; text-decoration: none;">Sair</a>
+											<form id="logout-form" method="POST" style="display:none;" action="{{ route('logout') }}">
+												@csrf
+												
+												<button type="submit" style="border: none; background: none; cursor: pointer; color: inherit;">
+													Sair
+												</button>
+											</form>
+
+											<script>
+												document.addEventListener('DOMContentLoaded', function() {
+													const logoutLink = document.getElementById('logout-link');
+													const logoutForm = document.getElementById('logout-form');
+
+													if (logoutLink && logoutForm) {
+														logoutLink.addEventListener('click', function(event) {
+															event.preventDefault(); // Impede o comportamento padrão do link (navegar para #)
+															logoutForm.submit(); // Submete o formulário de logout
+														});
+													}
+												});
+											</script>
+										</li>
+										
+									@endguest
+										
 										
 									</ul>
 								</nav>

@@ -40,7 +40,7 @@ class AuthenticatedSessionController extends Controller
         
         session(['jwt_token' => $token]);*/
 
-        return redirect()->intended('noticias');
+        return redirect()->intended('/');
         //return redirect()->intended(route('dashboard', absolute: false));*/
         // Criar um token JWT com tempo de expiração de 5 minutos
    

@@ -47,4 +47,13 @@ class SiteController extends Controller
 
         return View("site.news",compact('news'));
     }
+
+    public function newsSearch(Request $request){
+
+        $keyword = $request->get('keyword');
+        
+        $news = News::orderBy("id","desc")->where('title', 'like', "%$keyword%")->get();
+
+        return View("site.news",compact('news'));
+    }
 }
