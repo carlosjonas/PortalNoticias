@@ -47,7 +47,6 @@ if ($jwtToken) {
                                         Editar
                                     </a>
 
-                                    
                                     <button type="button" class="btn btn-sm btn-danger" onclick=" if(confirm('Você tem certeza que deseja excluir este registro?')){ this.form.submit() }" >
                                         Excluir
                                     </button>
