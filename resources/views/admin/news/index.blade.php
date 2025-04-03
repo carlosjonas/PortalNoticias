@@ -47,11 +47,11 @@ if ($jwtToken) {
                                         Editar
                                     </a>
 
-                                    @can("excluir-noticias")
-                                        <button type="button" class="btn btn-sm btn-danger" onclick=" if(confirm('Você tem certeza que deseja excluir este registro?')){ this.form.submit() }" >
-                                            Excluir
-                                        </button>
-                                    @endcan
+                                    
+                                    <button type="button" class="btn btn-sm btn-danger" onclick=" if(confirm('Você tem certeza que deseja excluir este registro?')){ this.form.submit() }" >
+                                        Excluir
+                                    </button>
+                                    
                                 </form>
                             </td>
                         </tr>
