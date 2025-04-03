@@ -9,7 +9,7 @@ use App\Models\User;
 class UserController extends Controller
 {
 
-    
+    //Retorna as informações para o Perfil
     public function show($id){
         // Verifica se o ID corresponde ao usuário autenticado
         if ($id != Auth::id()) {

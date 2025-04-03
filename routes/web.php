@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\JWTExpiredMiddleware;
 use Intervention\Image\Laravel\Facades\Image;
@@ -13,12 +14,6 @@ use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
-
-
-
-//Route::get('/', [SiteController::class,'home']);
-
-
 
 //Criando agrupamento de middlewares para que todas as rotas precisem da autenticação do usuário
 Route::middleware('auth')->group(function () {
@@ -53,6 +48,23 @@ Route::middleware('auth')->group(function () {
    
 });
 
+Route::post('/custom-login', function (Request $request) {
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required'
+    ]);
+
+    if (Auth::attempt($credentials)) {
+        $user = Auth::user();
+        $token = JWTAuth::fromUser($user);
+
+        return redirect()->route('home')->with('jwt_token', $token);
+    }
+
+    return back()->withErrors(['email' => 'Credenciais inválidas.']);
+})->name('custom.login');
+
+//Rotas get da página de notícias
 Route::get('/', [SiteController::class, 'home'])->name('home');
 Route::get('/noticias/categoria/{token}', [SiteController::class, 'newsCategory'])->name('newsCategory');
 Route::get('/noticias/{news}/{slug}', [SiteController::class, 'read'])->name('newsRead');
@@ -60,9 +72,13 @@ Route::get('/noticias', [SiteController::class, 'news'])->name('newsIndex');
 Route::get('/noticia/imagem/{filename}', [SiteController::class, 'exibirImagem'])->name('noticia.imagem');
 Route::get('/noticias/buscar', [SiteController::class, 'newsSearch'])->name('newsSearch');
 
+//Rotas de autenticação do jwt
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api');
+Route::get('/me', [AuthController::class, 'me'])->middleware('auth:api');
+Route::post('/refresh', [AuthController::class, 'refresh'])->middleware('auth:api');
 
-
-//Rotas de autenticação
+//Rotas de autenticação do breeze
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

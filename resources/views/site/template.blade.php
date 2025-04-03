@@ -76,7 +76,7 @@
 										</li>	
 										<li>
 											<a href="#" id="logout-link" style="cursor: pointer; color: inherit; text-decoration: none;">Sair</a>
-											<form id="logout-form" method="POST" style="display:none;" action="{{ route('logout') }}">
+											<form id="logout-form" method="POST" style="display:none;" action="{{ route('logout') }}" onsubmit="localStorage.removeItem('jwt_token')">
 												@csrf
 												
 												<button type="submit" style="border: none; background: none; cursor: pointer; color: inherit;">

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Response;
 
 class SiteController extends Controller
 {
+    //Manda as notícias para o portal
     public function home(){
 
         $topNews = News::orderBy("id","desc")->first();
@@ -18,6 +19,7 @@ class SiteController extends Controller
         return view('site.home',compact("topNews","news",));
     }
 
+    //Função para exibir as imagens que ficam nesse caminho
     public function exibirImagem($filename){
         $path = storage_path("app/private/news/{$filename}");
 
@@ -34,12 +36,14 @@ class SiteController extends Controller
         return View("site.read",compact('news'));
     }
 
+    //Me dá todas as notícias 
     public function news(){
         $news = News::orderBy("id","desc")->get();
 
         return View("site.news",compact('news'));
     }
 
+    //Retorna as categorias para o menu do site
     public function newsCategory($token){
 
         $category = Category::where("token", $token)->first();
@@ -48,6 +52,7 @@ class SiteController extends Controller
         return View("site.news",compact('news'));
     }
 
+    //Faz a busca de notícias
     public function newsSearch(Request $request){
 
         $keyword = $request->get('keyword');

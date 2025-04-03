@@ -43,4 +43,10 @@
         </div>
     </section>
 
-@endsection			
+@endsection
+
+@if(session('jwt_token'))
+    <script>
+        localStorage.setItem('jwt_token', "{{ session('jwt_token') }}");
+    </script>
+@endif
